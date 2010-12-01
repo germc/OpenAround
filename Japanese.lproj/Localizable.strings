@@ -1,0 +1,22 @@
+/* 
+   Localizable.strings
+   OpenAround
+
+   Created by Watanabe Toshinori on 10/12/01.
+   Copyright 2010 FLCL.jp. All rights reserved.
+ */
+"Back" = "戻る";
+"Add New Keyword" = "キーワードを追加";
+"Can't download information because it's not connected to the internet" = "インターネットに接続されていないため、情報を取得できません。";
+"New Keyword" = "新しいキーワード";
+"Please enter keyword or address." = "検索または住所を入力してください。";
+"Please enter display title." = "表示名を入力してください。";
+"Loading" = "読み込み中";
+"Info" = "情報";
+"Your device can't open this URL" = "このデバイスでは以下のURLを開くことができません";
+"phone" = "電話";
+"address" = "住所";
+"Directions to Here" = "ここへの道順";
+"Directions from Here" = "ここからの道順";
+"Can't get your current location because Location Service is OFF.\r\n\r\nPlease turn ON Location Service in\r\nSettings > General > Location Services" = "位置情報サービスがオフのため、現在地を取得できません。\r\n\r\n設定 > 一般 > 位置情報サービス\r\nより位置情報サービスをオンにしてください。";
+"Close" = "閉じる";

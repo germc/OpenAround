@@ -36,9 +36,10 @@
 		1305E56D12A5E58F0080B441 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1305E56C12A5E58F0080B441 /* MapViewController.xib */; };
 		1305E56F12A5E5960080B441 /* LandmarkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1305E56E12A5E5960080B441 /* LandmarkViewController.xib */; };
 		1305E57112A5E59D0080B441 /* InfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1305E57012A5E59D0080B441 /* InfoViewController.xib */; };
-		1347AF8A12A5E9730002AE53 /* OpenAround.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 1347AF8912A5E9730002AE53 /* OpenAround.sqlite */; };
 		1347AFE112A5EBD30002AE53 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1347AFDF12A5EBD30002AE53 /* Default.png */; };
 		1347AFE212A5EBD30002AE53 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1347AFE012A5EBD30002AE53 /* Default@2x.png */; };
+		1373CDFB12A75D7000AA74C8 /* MapSchemeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1373CDFA12A75D7000AA74C8 /* MapSchemeHelper.m */; };
+		1373CE5612A7650500AA74C8 /* OpenAround.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 1373CE5512A7650500AA74C8 /* OpenAround.sqlite */; };
 		1D3623260D0F684500981E51 /* OpenAroundAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* OpenAroundAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -97,9 +98,12 @@
 		1305E56112A5E5520080B441 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1305E57212A5E5B20080B441 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/NewKeywordViewController.xib; sourceTree = "<group>"; };
 		1305E57312A5E5BE0080B441 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Japanese; path = Japanese.lproj/LandmarkViewController.xib; sourceTree = "<group>"; };
-		1347AF8912A5E9730002AE53 /* OpenAround.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = OpenAround.sqlite; sourceTree = "<group>"; };
+		1347AF8912A5E9730002AE53 /* English */ = {isa = PBXFileReference; lastKnownFileType = file; name = English; path = English.lproj/OpenAround.sqlite; sourceTree = "<group>"; };
 		1347AFDF12A5EBD30002AE53 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1347AFE012A5EBD30002AE53 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1373CDF912A75D7000AA74C8 /* MapSchemeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapSchemeHelper.h; sourceTree = "<group>"; };
+		1373CDFA12A75D7000AA74C8 /* MapSchemeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapSchemeHelper.m; sourceTree = "<group>"; };
+		1373CE5712A7650A00AA74C8 /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = file; name = Japanese; path = Japanese.lproj/OpenAround.sqlite; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* OpenAroundAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenAroundAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* OpenAroundAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenAroundAppDelegate.m; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				1305E39A12A5D2C20080B441 /* AppDelegate */,
 				1305E53712A5E4B30080B441 /* NSString+EncodeURIComponent.h */,
 				1305E53812A5E4B30080B441 /* NSString+EncodeURIComponent.m */,
+				1373CDF912A75D7000AA74C8 /* MapSchemeHelper.h */,
+				1373CDFA12A75D7000AA74C8 /* MapSchemeHelper.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -300,11 +306,11 @@
 			isa = PBXGroup;
 			children = (
 				1305E39712A5D29C0080B441 /* xib */,
+				1373CE5512A7650500AA74C8 /* OpenAround.sqlite */,
 				1305E4ED12A5E1620080B441 /* Icon.png */,
 				1305E4EF12A5E1670080B441 /* Icon@2x.png */,
 				1347AFDF12A5EBD30002AE53 /* Default.png */,
 				1347AFE012A5EBD30002AE53 /* Default@2x.png */,
-				1347AF8912A5E9730002AE53 /* OpenAround.sqlite */,
 				8D1107310486CEB800E47090 /* OpenAround-Info.plist */,
 			);
 			name = Resources;
@@ -384,7 +390,7 @@
 				1305E4EE12A5E1620080B441 /* Icon.png in Resources */,
 				1305E4F012A5E1670080B441 /* Icon@2x.png in Resources */,
 				1305E56012A5E54D0080B441 /* Localizable.strings in Resources */,
-				1347AF8A12A5E9730002AE53 /* OpenAround.sqlite in Resources */,
+				1373CE5612A7650500AA74C8 /* OpenAround.sqlite in Resources */,
 				1347AFE112A5EBD30002AE53 /* Default.png in Resources */,
 				1347AFE212A5EBD30002AE53 /* Default@2x.png in Resources */,
 			);
@@ -417,6 +423,7 @@
 				1305E54312A5E4ED0080B441 /* GoogleLandmark.m in Sources */,
 				1305E54412A5E4ED0080B441 /* GoogleSearchClient.m in Sources */,
 				1305E54512A5E4ED0080B441 /* GoogleSearchCondition.m in Sources */,
+				1373CDFB12A75D7000AA74C8 /* MapSchemeHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +487,15 @@
 				1305E3EA12A5D3BD0080B441 /* English */,
 			);
 			name = InfoViewController.xib;
+			sourceTree = "<group>";
+		};
+		1373CE5512A7650500AA74C8 /* OpenAround.sqlite */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1347AF8912A5E9730002AE53 /* English */,
+				1373CE5712A7650A00AA74C8 /* Japanese */,
+			);
+			name = OpenAround.sqlite;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

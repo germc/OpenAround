@@ -7,15 +7,14 @@
 //
 
 #import "LandmarkViewController.h"
-#import "NSString+EncodeURIComponent.h"
 #import "OpenAroundAppDelegate.h"
 #import "MenuTableViewCell.h"
+#import "MapSchemeHelper.h"
 
 
 @interface LandmarkViewController ()
 - (void)resizeTitleView;
 - (void)openURLString:(NSString *)urlString;
-- (NSString *)mapTypeForQuery;
 @end
 
 
@@ -72,7 +71,14 @@
 }
 
 - (IBAction)map:(id)sender {
-	NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@&z=%d&t=%@", [NSString stringEncodeURIComponent:[landmark title]], 12, [self mapTypeForQuery]];
+	MapSchemeHelper *mapScheme = [MapSchemeHelper new];
+	mapScheme.zoomLevel = 14;
+	mapScheme.mapType = mapType;
+	NSString *urlString = [mapScheme urlStringWithQueryString:[landmark title]];
+	[mapScheme release];
+	
+	DLog(@"urlString, %@", urlString);
+
 	[self openURLString:urlString];
 }
 
@@ -102,17 +108,6 @@
 		[alertView show];
 		[alertView release];
 	}
-}
-
-- (NSString *)mapTypeForQuery {
-	switch (mapType) {
-		case MKMapTypeSatellite:
-			return @"k";
-		case MKMapTypeHybrid:
-			return @"h";
-	}
-	
-	return @"m";
 }
 
 
@@ -210,20 +205,32 @@
 	if (indexPath.section == 2) {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
-		UIApplication *application = [UIApplication sharedApplication];
 		NSString *urlString = nil;
-
-		CLLocationCoordinate2D srcCoordinate = ((CLLocation *)((OpenAroundAppDelegate *)application.delegate).currentLocation).coordinate;
-		CLLocationCoordinate2D distCoordinate = [landmark coordinate];
-
+		
+		MapSchemeHelper *mapScheme = [MapSchemeHelper new];
+		mapScheme.zoomLevel = 14;
+		mapScheme.mapType = mapType;
+		
 		switch (indexPath.row) {
-			case 0:
-				urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&daddr=%f,%f&z=%d&t=%@", srcCoordinate.latitude, srcCoordinate.longitude, distCoordinate.latitude, distCoordinate.longitude, 14, [self mapTypeForQuery]];
+			case 0: {
+				UIApplication *application = [UIApplication sharedApplication];
+				CLLocationCoordinate2D srcCoordinate = ((CLLocation *)((OpenAroundAppDelegate *)application.delegate).currentLocation).coordinate;
+				CLLocationCoordinate2D destCoordinate = [landmark coordinate];
+
+				urlString = [mapScheme urlStringWithSourceCoordinate:srcCoordinate destinationCoordinate:destCoordinate];
 				break;
-			case 1:
-				urlString = [NSString stringWithFormat:@"http://maps.google.com/maps?saddr=%f,%f&z=%d&t=%@", distCoordinate.latitude, distCoordinate.longitude, 14, [self mapTypeForQuery]];
+			}
+			case 1: {
+				CLLocationCoordinate2D srcCoordinate = [landmark coordinate];
+				
+				urlString = [mapScheme urlStringWithSourceCoordinate:srcCoordinate destinationCoordinate:kCLLocationCoordinate2DInvalid];
 				break;
+			}
 		}
+
+		[mapScheme release];
+
+		DLog(@"urlString, %@", urlString);
 		
 		if (urlString) {
 			[self openURLString:urlString];

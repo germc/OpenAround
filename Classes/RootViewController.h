@@ -12,10 +12,14 @@
 
 @interface RootViewController : UITableViewController <NSFetchedResultsControllerDelegate, NewKeywordViewControllerDelegate> {
 
+	BOOL reorderRows_;
+
 @private
     NSFetchedResultsController *fetchedResultsController_;
     NSManagedObjectContext *managedObjectContext_;
 }
+
+@property (nonatomic, assign) BOOL reorderRows_;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;

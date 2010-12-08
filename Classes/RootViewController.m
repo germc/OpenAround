@@ -24,6 +24,7 @@
 
 @implementation RootViewController
 
+@synthesize reorderRows_;
 @synthesize fetchedResultsController = fetchedResultsController_;
 @synthesize managedObjectContext = managedObjectContext_;
 
@@ -40,7 +41,6 @@
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Info", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo)] autorelease];
 }
-
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:(BOOL)editing animated:(BOOL)animated];
@@ -132,13 +132,7 @@
 	
 	NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
 	NSArray *fetchedObjects = [self.fetchedResultsController fetchedObjects];
-	NSInteger order = 0;
-	if (fetchedObjects) {
-		if ([fetchedObjects count] > 0) {
-			Keyword *lastKeyword = [fetchedObjects lastObject];
-			order = lastKeyword.order.intValue + 1;
-		}
-	}
+	NSInteger order = [fetchedObjects count];
 	
 	Keyword *newKeyword = [NSEntityDescription insertNewObjectForEntityForName:@"Keyword" inManagedObjectContext:context];
 	newKeyword.title = titleString;
@@ -232,6 +226,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+	self.reorderRows_ = YES;
 	
     NSArray * fetchedObjects = [self.fetchedResultsController fetchedObjects]; 
 	
@@ -324,11 +319,19 @@
 
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+	if (reorderRows_) {
+		return;
+	}
+
     [self.tableView beginUpdates];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+
+	if (reorderRows_) {
+		return;
+	}
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -344,6 +347,10 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
+
+	if (reorderRows_) {
+		return;
+	}
     
     UITableView *tableView = self.tableView;
     
@@ -360,13 +367,16 @@
         case NSFetchedResultsChangeUpdate:
             [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
-            
-        case NSFetchedResultsChangeMove:
-            break;
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	if (reorderRows_) {
+		self.reorderRows_ = NO;
+		[self.tableView reloadData];
+		return;
+	}
+
     [self.tableView endUpdates];
 }
 

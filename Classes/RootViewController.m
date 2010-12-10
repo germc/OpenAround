@@ -156,9 +156,8 @@
 	if (self.editing) {
 		numberOfRows ++;
 	}
+
 	return numberOfRows;
-	
-	return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -176,6 +175,11 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!self.editing) {
+		// Ignore cell swipe.
+		return UITableViewCellEditingStyleNone;
+	}
+
 	if (self.editing) {
 		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:indexPath.section];
 		if (indexPath.row == [sectionInfo numberOfObjects]) {
@@ -228,38 +232,21 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 	self.reorderRows_ = YES;
 	
-    NSArray * fetchedObjects = [self.fetchedResultsController fetchedObjects]; 
+    NSMutableArray * fetchedObjects = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]]; 
 	
-    NSUInteger fromRow = fromIndexPath.row;
-    NSUInteger toRow = toIndexPath.row;
+	id item = [fetchedObjects objectAtIndex:fromIndexPath.row];
+	[fetchedObjects removeObject:item];
+	[fetchedObjects insertObject:item atIndex:toIndexPath.row];
 	
-	if (toRow > fromRow) {
-		NSInteger start = fromRow;
-		NSInteger end = toRow;
-		
-		for (NSInteger i = start; i <= end; i++) {
-			Keyword *keyword = [fetchedObjects objectAtIndex:i];
-			
-			if (i == fromRow) {
-				keyword.order = [NSNumber numberWithInteger:toRow];
-			} else {
-				keyword.order = [NSNumber numberWithInteger:i - 1];
-			}
-		}
-		
-	} else {
-		NSInteger start = toRow;
-		NSInteger end = fromRow;
-		
-		for (NSInteger i = start; i <= end; i++) {
-			Keyword *keyword = [fetchedObjects objectAtIndex:i];
-			
-			if (i == fromRow) {
-				keyword.order = [NSNumber numberWithInteger:toRow];
-			} else {
-				keyword.order = [NSNumber numberWithInteger:i + 1];
-			}
-		}
+	int i = 0;
+	for (Keyword *keyword in fetchedObjects) {
+		keyword.order = [NSNumber numberWithInt:i];
+		i ++;
+	}
+	
+	NSError *error = nil;
+	if (![self.fetchedResultsController.managedObjectContext save:&error]) {
+		DLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	}
 }
 

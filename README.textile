@@ -2,7 +2,7 @@ h1. OpenAround
 
 Simple place search iPhone application. Just like the Around Me. 
 
-!http://s3.flcl.jp/openaround_screenshot_1.png! !http://s3.flcl.jp/openaround_screenshot_2.png! !http://s3.flcl.jp/openaround_screenshot_3.png!
+!/FLCLjp/OpenAround/raw/master/screenshot_1_.png! !/FLCLjp/OpenAround/raw/master/screenshot_2_.png! !/FLCLjp/OpenAround/raw/master/screenshot_3_.png!
 
 h2. License
 
